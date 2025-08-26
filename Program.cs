@@ -3,6 +3,7 @@ using StudentApplication.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.StaticFiles; // Needed for some advanced static file options, though not strictly for basic use
 
 namespace StudentApplication
 {
@@ -15,17 +16,8 @@ namespace StudentApplication
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Register the StudentStorageService for dependency injection
-            builder.Services.AddSingleton<StudentStorageService>(provider =>
-            {
-                // Access configuration from appsettings.json or Azure App Settings
-                var configuration = provider.GetRequiredService<IConfiguration>();
-                //var connectionString = configuration["AzureStorage:ConnectionString"];
-
-                // Pass the connection string into your service
-                return new StudentStorageService(configuration);
-            });
-
+            // Register your RetailStorageService for dependency injection
+            builder.Services.AddSingleton<RetailStorageService>();
 
             var app = builder.Build();
 
@@ -33,18 +25,26 @@ namespace StudentApplication
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see [https://aka.ms/aspnetcore-hsts](https://aka.ms/aspnetcore-hsts).
+                app.UseHsts();
             }
+
+            app.UseHttpsRedirection(); // Recommended for production
+
+            // Enable static files serving. This looks for files in the 'wwwroot' folder by default.
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.MapStaticAssets();
+            // Map controller routes
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
     }
 }
+

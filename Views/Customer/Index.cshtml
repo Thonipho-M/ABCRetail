@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Customer Management";
+}
+<h2>Add Customer</h2>
+<form asp-action="AddCustomer" method="post">
+    <label>ID:</label><input type="text" name="id" /><br />
+    <label>Name:</label><input type="text" name="name" /><br />
+    <label>Email:</label><input type="text" name="email" /><br />
+    <button type="submit">Add Customer</button>
+</form>
+<p>@ViewBag.Message</p>

@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Order Processing";
+}
+<h2>Process Order</h2>
+<form asp-action="ProcessOrder" method="post">
+    <label>Order ID:</label><input type="text" name="orderId" /><br />
+    <button type="submit">Send to Queue</button>
+</form>
+<p>@ViewBag.Message</p>
