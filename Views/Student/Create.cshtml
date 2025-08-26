@@ -1,0 +1,36 @@
+﻿@model StudentMark //this razor page to pull studel data from the model
+
+
+<h2 style="color: aqua"><b>Add Student</b></h2>
+
+
+<!-- Create a form that will capture student details-->
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+  <!--Create an input fieds that will capture actual data of a student-->  
+  <label>Name</label>
+    <input type="text" name="Name" class="form-control" placeholder="Enter Student Name" required />
+
+    <label>Module</label>
+    <input type="text" name="Module" class="form-control" placeholder="Enter Module Name" required />
+
+    <label>Mark 1</label>
+    <input type="number" name="Mark1" class="form-control" placeholder="Enter Mark 1" required />
+
+     <label>Mark 2</label>
+    <input type="number" name="Mark2" class="form-control" placeholder="Enter Mark 1" required />
+
+    <label>Mark 3</label>
+    <input type="number" name="Mark3" class="form-control" placeholder="Enter Mark 1" required />
+
+    <label>Mark 4</label>
+    <input type="number" name="Mark4" class="form-control" placeholder="Enter Mark 1" required />
+
+    <label>Student Profile</label>
+    <input type="file" name="image" class="form-control" accept="image/*" required />
+
+    <button type="submit" class="btn btn-primary mt-3">Add Student</button>
+
+
+
+</form>
